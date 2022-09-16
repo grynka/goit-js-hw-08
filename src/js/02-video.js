@@ -3,8 +3,6 @@ import throttle from 'lodash.throttle';
 
 const iframe = document.querySelector('iframe');
 const player = new Vimeo(iframe);
-let moment = 0;
-let storage;
 
 player
   .setCurrentTime(localStorage.getItem('videoplayer-current-time'))
@@ -24,10 +22,9 @@ player
   });
 
 const onPlay = function (timeupdate) {
-    moment = timeupdate.seconds;
-    storage = localStorage.setItem(
+localStorage.setItem(
       'videoplayer-current-time',
-      JSON.stringify(moment)
+      JSON.stringify(timeupdate.seconds)
     );
 };
 
