@@ -16,17 +16,17 @@ if (JSON.parse(localStorage.getItem('feedback-form-state')) !== null) {
 }
 
 form.addEventListener('input', throttle(event => {
-    if (event.target.name === "email") {
-        saveForm.email = event.target.value;
-    }
-    else if (event.target.name === 'message') {
-        saveForm.message = event.target.value;
+    if (event.target.name === 'email' && event.target.value !== null) {
+      saveForm.email = event.target.value;
+    } else if (event.target.name === 'message') {
+      saveForm.message = event.target.value;
     }
 
     localStorage.setItem('feedback-form-state', JSON.stringify(saveForm)); 
 }, 500));
 
 form.addEventListener('submit', event => {
+    event.preventDefault();
     form.reset();
     localStorage.removeItem('feedback-form-state');
     console.log(saveForm);
