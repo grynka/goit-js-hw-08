@@ -1,5 +1,4 @@
 import throttle from 'lodash.throttle';
-<<<<<<< Updated upstream
 
 let email = document.querySelector("input[name='email']");
 let message = document.querySelector("textarea[name='message']");
@@ -34,6 +33,3 @@ form.addEventListener('submit', event => {
 });
 
 
-
-=======
->>>>>>> Stashed changes
