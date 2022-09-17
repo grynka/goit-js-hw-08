@@ -3,22 +3,33 @@ import throttle from 'lodash.throttle';
 let email = document.querySelector("input[name='email']");
 let message = document.querySelector("textarea[name='message']");
 let form = document.querySelector('form');
+;
 
-const saveForm = {
-  email: "",
-  message: "",
+const saveEmail = () => {
+  if (JSON.parse(localStorage.getItem('feedback-form-state')) !== null) {
+    return JSON.parse(localStorage.getItem('feedback-form-state')).email;
+  }
+    return null;
 };
 
+const saveMessage = () => {
+  if (JSON.parse(localStorage.getItem('feedback-form-state')) !== null) {
+   return JSON.parse(localStorage.getItem('feedback-form-state')).message;
+  } else return null;
+};
 
-if (JSON.parse(localStorage.getItem('feedback-form-state')) !== null) {
-    email.value = JSON.parse(localStorage.getItem('feedback-form-state')).email;
-    message.value = JSON.parse(localStorage.getItem('feedback-form-state')).message;
-}
+const saveForm = {
+  email: saveEmail(),
+  message: saveMessage(),
+};
+
+  email.value = saveForm.email;
+  message.value = saveForm.message;
 
 form.addEventListener('input', throttle(event => {
-    if (event.target.name === 'email' && event.target.value !== null) {
+    if (event.target.name === 'email') {
       saveForm.email = event.target.value;
-    } else if (event.target.name === 'message' && event.target.value !== null) {
+    } else if (event.target.name === 'message') {
       saveForm.message = event.target.value;
     }
 
@@ -32,6 +43,9 @@ form.addEventListener('submit', event => {
     form.reset();
     localStorage.removeItem('feedback-form-state');
     console.log(saveForm);
+    saveForm.email = null;
+    saveForm.message = null;
+
 });
 
 
