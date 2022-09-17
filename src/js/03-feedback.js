@@ -18,12 +18,14 @@ if (JSON.parse(localStorage.getItem('feedback-form-state')) !== null) {
 form.addEventListener('input', throttle(event => {
     if (event.target.name === 'email' && event.target.value !== null) {
       saveForm.email = event.target.value;
-    } else if (event.target.name === 'message') {
+    } else if (event.target.name === 'message' && event.target.value !== null) {
       saveForm.message = event.target.value;
     }
 
-    localStorage.setItem('feedback-form-state', JSON.stringify(saveForm)); 
+  localStorage.setItem('feedback-form-state', JSON.stringify(saveForm)); 
+  
 }, 500));
+
 
 form.addEventListener('submit', event => {
     event.preventDefault();
